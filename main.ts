@@ -1,11 +1,11 @@
-/**
+ï»¿/**
  * Reading and writing data over a serial connection.
  */
 //% weight=2 color=#3276f4 icon="\uf0c2"
 namespace TFabConnect {
     let waitTime = 3000;
 
-    //% blockId=serial_initialize block="‰Šú‰»"
+    //% blockId=serial_initialize block="åˆæœŸåŒ–"
     export function serialInitialize(): void {
         serial.redirect(
             SerialPin.USB_TX,
@@ -19,7 +19,7 @@ namespace TFabConnect {
      * @param varName name of Cloud-Variable, eg: 
      * @param value write value to Cloud-Variable
      */
-    //% blockId=serial_writeid_value block="ƒNƒ‰ƒEƒh•Ï”%varName‚É’l%value‚ğ‘‚­"
+    //% blockId=serial_writeid_value block="ã‚¯ãƒ©ã‚¦ãƒ‰å¤‰æ•°%varNameã«å€¤%valueã‚’æ›¸ã"
     export function writeValue(varName: string, value: number): void {
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}');
     }
@@ -28,7 +28,7 @@ namespace TFabConnect {
      * Write a name:value pair as a line to the serial port.
      * @param varName name of Cloud-Variable, eg:
      */
-    //% blockId=serial_result block="ƒNƒ‰ƒEƒh•Ï”%varName‚ğ“Ç‚ñ‚¾’l"
+    //% blockId=serial_result block="ã‚¯ãƒ©ã‚¦ãƒ‰å¤‰æ•°%varNameã‚’èª­ã‚“ã å€¤"
     export function readValue(varName: string) {
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
@@ -39,7 +39,7 @@ namespace TFabConnect {
      * setting wait time.
      * @param msec , eg:5000
      */
-    //% blockId=set_wait_time block="‰“š‘Ò‚¿ŠÔ(ƒ~ƒŠ•bj%msec"
+    //% blockId=set_wait_time block="å¿œç­”å¾…ã¡æ™‚é–“(ãƒŸãƒªç§’ï¼‰%msec"
     //% advanced=true
     export function setWaitTime(msec: number) {
         waitTime = msec;
