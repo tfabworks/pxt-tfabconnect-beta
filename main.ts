@@ -33,6 +33,7 @@ namespace TFabConnect {
      */
     //% blockId=serial_result block="クラウド変数%varNameを読んだ値"
     export function readValue(varName: string) {
+        let receiveNumber;
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
 
