@@ -4,6 +4,7 @@
 //% weight=2 color=#3276f4 icon="\uf0c2"
 namespace TFabConnect {
     let waitTime = 3000;
+    let _;
 
     //% blockId=serial_initialize block="初期化"
     export function serialInitialize(): void {
@@ -12,6 +13,8 @@ namespace TFabConnect {
             SerialPin.USB_RX,
             BaudRate.BaudRate115200
         )
+        serial.writeString("\r\n"); // ヌル文字をいったんクリア
+        _ = serial.readString(); // 受信バッファのゴミ除去
     }
 
     /**
@@ -32,7 +35,12 @@ namespace TFabConnect {
     export function readValue(varName: string) {
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
-        return serial.readString();
+
+        receiveNumber = parseFloat(serial.readString());
+        if (isNaN(receiveNumber)) {
+            return 0;
+        }
+        return receiveNumber;
     }
 
     /**
@@ -43,5 +51,9 @@ namespace TFabConnect {
     //% advanced=true
     export function setWaitTime(msec: number) {
         waitTime = msec;
+    }
+
+    function isNaN(x: number) {
+        return x !== x;
     }
 }
