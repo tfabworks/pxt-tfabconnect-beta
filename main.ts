@@ -31,7 +31,7 @@ namespace TFabConnect {
      * Write a name:value pair as a line to the serial port.
      * @param varName name of Cloud-Variable, eg:
      */
-    //% blockId=serial_result block="クラウド変数%varNameを読んだ値"
+    //% blockId=serial_result block="クラウド変数%varName"
     export function readValue(varName: string) {
         let receiveNumber;
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
