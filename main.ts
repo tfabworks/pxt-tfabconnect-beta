@@ -22,7 +22,7 @@ namespace TFabConnect {
      * @param varName name of Cloud-Variable, eg: 
      * @param value write value to Cloud-Variable
      */
-    //% blockId=serial_writeid_value block="クラウド変数%varNameに値%valueを書く"
+    //% blockId=serial_writeid_value block="クラウド変数%varNameを%valueにする"
     export function writeValue(varName: string, value: number): void {
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}');
     }
