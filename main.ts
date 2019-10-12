@@ -5,7 +5,7 @@ enum Choice {
     Month,
     //% block="日"
     Day,
-    //% block="時間"
+    //% block="時"
     Hour,
     //% block="分"
     Minute
