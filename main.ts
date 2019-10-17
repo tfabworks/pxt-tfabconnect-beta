@@ -8,7 +8,11 @@ enum Choice {
     //% block="時"
     Hour,
     //% block="分"
-    Minute
+    Minute,
+    //% block="秒"
+    Second,
+    //% block="UnixTime"
+    UnixTime
 }
 
 //% weight=2 color=#3276f4 icon="\uf0c2"
@@ -60,7 +64,15 @@ namespace TFabConnect {
         return receiveNumber;
     }
 
-
+    /**
+     * setting wait time.
+     * @param msec , eg:5000
+     */
+    //% blockId=set_wait_time block="応答待ち時間(ミリ秒）%msec"
+    //% advanced=true
+    export function setWaitTime(msec: number) {
+        waitTime = msec;
+    }
 
     function isNaN(x: number) {
         return x !== x;
@@ -91,6 +103,7 @@ namespace TFabConnect {
         }
 
         //9時間分の時差を補正
+        let unix_show = Math.trunc(sec);
         sec = sec + 32400;
 
         //yearを求める
@@ -116,10 +129,11 @@ namespace TFabConnect {
             let min_pre = hour_pre + 9 + "";
             let min = parseFloat('0.' + min_pre.split(".")[1]) * 60;
             let min_int = Math.trunc(Math.round(min * 10000000000) / 10000000000);
-
+            let sec = (min - min_int) * 60;
+            let sec_int = Math.trunc(Math.round(sec * 10000000000) / 10000000000);
             let y_int = Math.trunc(y);
 
-            const x = [y_int, m, d, hour_show, min_int];
+            const x = [y_int, m, d, hour_show, min_int, sec_int, unix_show];
             return x;
         } else {//うるう日以外
             let amaridays = Math.trunc(sec_y / 86400);
@@ -139,10 +153,11 @@ namespace TFabConnect {
                 let min_pre = hour_pre + 9 + "";
                 let min = parseFloat('0.' + min_pre.split(".")[1]) * 60;
                 let min_int = Math.trunc(Math.round(min * 10000000000) / 10000000000);
-
+                let sec = (min - min_int) * 60;
+                let sec_int = Math.trunc(Math.round(sec * 10000000000) / 10000000000);
                 let y_int = Math.trunc(y);
 
-                const x = [y_int, m, d, hour_show, min_int];
+                const x = [y_int, m, d, hour_show, min_int, sec_int, unix_show];
                 return x;
 
             } else {//通常年
@@ -161,10 +176,11 @@ namespace TFabConnect {
                 let min_pre = hour_pre + 9 + "";
                 let min = parseFloat('0.' + min_pre.split(".")[1]) * 60;
                 let min_int = Math.trunc(Math.round(min * 10000000000) / 10000000000);
-
+                let sec = (min - min_int) * 60;
+                let sec_int = Math.trunc(Math.round(sec * 10000000000) / 10000000000);
                 let y_int = Math.trunc(y);
 
-                const x = [y_int, m, d, hour_show, min_int];
+                const x = [y_int, m, d, hour_show, min_int, sec_int, unix_show];
                 return x;
             }
         }
@@ -185,8 +201,13 @@ namespace TFabConnect {
                 return result[3];
             case Choice.Minute:
                 return result[4];
+            case Choice.Second:
+                return result[5];
+            case Choice.UnixTime:
+                return result[6];
             default:
                 return 0;
         }
     }
 }
+
