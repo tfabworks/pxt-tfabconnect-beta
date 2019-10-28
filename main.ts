@@ -64,16 +64,6 @@ namespace TFabConnect {
         return receiveNumber;
     }
 
-    /**
-     * setting wait time.
-     * @param msec , eg:5000
-     */
-    //% blockId=set_wait_time block="応答待ち時間(ミリ秒）%msec"
-    //% advanced=true
-    export function setWaitTime(msec: number) {
-        waitTime = msec;
-    }
-
     function isNaN(x: number) {
         return x !== x;
     }
@@ -98,7 +88,7 @@ namespace TFabConnect {
 
         //2000/01/01 00:00:00の例外
         if (sec == 946652400) {
-            const x = [2000, 1, 1, 0, 0];
+            const x = [2000, 1, 1, 0, 0, 0];
             return x;
         }
 
@@ -210,4 +200,3 @@ namespace TFabConnect {
         }
     }
 }
-
