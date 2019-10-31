@@ -64,6 +64,12 @@ namespace TFabConnect {
         return receiveNumber;
     }
 
+    /**
+     * setting wait time.
+     * @param msec , eg:5000
+     */
+
+
     function isNaN(x: number) {
         return x !== x;
     }
@@ -88,7 +94,7 @@ namespace TFabConnect {
 
         //2000/01/01 00:00:00の例外
         if (sec == 946652400) {
-            const x = [2000, 1, 1, 0, 0, 0];
+            const x = [2000, 1, 1, 0, 0];
             return x;
         }
 
