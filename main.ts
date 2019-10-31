@@ -68,7 +68,11 @@ namespace TFabConnect {
      * setting wait time.
      * @param msec , eg:5000
      */
-
+    //% blockId=set_wait_time block="応答待ち時間(ミリ秒）%msec"
+    //% advanced=true
+    export function setWaitTime(msec: number) {
+        waitTime = msec;
+    }
 
     function isNaN(x: number) {
         return x !== x;
