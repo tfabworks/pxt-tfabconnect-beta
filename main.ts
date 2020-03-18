@@ -46,7 +46,7 @@ namespace TFabConnect {
     export function writeValue(varName: string, value: number): void {
         let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}';
         let hash = computeHash(s);
-        serial.writeLine(s+hash.toString);
+        serial.writeLine(s+hash);
     }
 
     /**
