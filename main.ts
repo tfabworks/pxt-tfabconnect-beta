@@ -1,3 +1,5 @@
+var XXH = require('..')
+
 enum Choice {
     //% block="年"
     Year,
@@ -56,6 +58,8 @@ namespace TFabConnect {
         let receiveNumber;
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
+        console.log('abcd');
+        console.log(XXH.h32('abcd', 0xABCD ).toString(16));
 
         receiveNumber = parseFloat(serial.readString());
         if (isNaN(receiveNumber)) {
