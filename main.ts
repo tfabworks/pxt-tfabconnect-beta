@@ -1,5 +1,3 @@
-import { XXHash32 } from "../hash"
-
 enum Choice {
     //% block="年"
     Year,
@@ -59,9 +57,7 @@ namespace TFabConnect {
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
         console.log('abcd');
-        console.log(XXHash32.hash(0, 'abcd')
-            .toString(16)
-            .toUpperCase());
+        console.log(computeHash('abcd'));
 
         receiveNumber = parseFloat(serial.readString());
         if (isNaN(receiveNumber)) {
@@ -186,6 +182,23 @@ namespace TFabConnect {
                 return x;
             }
         }
+    }
+
+    // https://github.com/microsoft/pxt-radio-blockchain/blob/master/main.ts
+    // MIT Lincense
+    // Copyright (c) Microsoft Corporation. All rights reserved.
+    // https://github.com/microsoft/pxt-radio-blockchain/blob/master/LICENSE
+    function computeHash(str: string) {
+        let s = "" + str
+        /**
+         * dbj2 hashing, http://www.cse.yorku.ca/~oz/hash.html
+         */
+        let hash = 5381;
+        for (let i = 0; i < s.length; i++) {
+            let c = s.charCodeAt(i);
+            hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+        }
+        return hash & 0xff;
     }
 
     //% blockId=watch_time block="時間 %Choice"
