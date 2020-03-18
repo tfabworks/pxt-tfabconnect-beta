@@ -44,7 +44,9 @@ namespace TFabConnect {
      */
     //% blockId=serial_writeid_value block="クラウド変数%varNameを%valueにする"
     export function writeValue(varName: string, value: number): void {
-        serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}');
+        let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}';
+        let hash = computeHash(s);
+        serial.writeLine(s+hash.toString);
     }
 
     /**
@@ -56,8 +58,6 @@ namespace TFabConnect {
         let receiveNumber;
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
-        console.log('abcd');
-        console.log(computeHash('abcd'));
 
         receiveNumber = parseFloat(serial.readString());
         if (isNaN(receiveNumber)) {
