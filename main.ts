@@ -44,9 +44,10 @@ namespace TFabConnect {
      */
     //% blockId=serial_writeid_value block="クラウド変数%varNameを%valueにする"
     export function writeValue(varName: string, value: number): void {
-        let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}';
-        let hash = computeHash(s);
-        serial.writeLine(s+hash);
+        // let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}';
+        let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + varName + ',' + value;
+        let hash = computeHash(csv);
+        serial.writeLine(csv+','+hash);
     }
 
     /**
@@ -56,7 +57,10 @@ namespace TFabConnect {
     //% blockId=serial_result block="クラウド変数%varName"
     export function readValue(varName: string) {
         let receiveNumber;
-        serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
+        // let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}'
+        let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',r,' + varName + ',0'
+        let hash = computeHash(csv);
+        serial.writeLine(csv+','+hash);
         basic.pause(waitTime);
 
         receiveNumber = parseFloat(serial.readString());
