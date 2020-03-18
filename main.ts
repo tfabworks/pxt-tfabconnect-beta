@@ -1,4 +1,4 @@
-var XXH = require('..')
+import { XXHash32 } from "../hash"
 
 enum Choice {
     //% block="年"
@@ -59,7 +59,9 @@ namespace TFabConnect {
         serial.writeLine('{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}');
         basic.pause(waitTime);
         console.log('abcd');
-        console.log(XXH.h32('abcd', 0xABCD ).toString(16));
+        console.log(XXHash32.hash(0, 'abcd')
+            .toString(16)
+            .toUpperCase());
 
         receiveNumber = parseFloat(serial.readString());
         if (isNaN(receiveNumber)) {
