@@ -17,7 +17,8 @@ enum Choice {
 
 //% weight=2 color=#3276f4 icon="\uf0c2"
 namespace TFabConnect {
-    let waitTime = 3000;
+    let writeWaitTime = 1000;
+    let readWaitTime = 3000;
     let _;
     let unixtime_init = 0;
     let unixtime_current = 0;
@@ -44,10 +45,10 @@ namespace TFabConnect {
      */
     //% blockId=serial_writeid_value block="クラウド変数%varNameを%valueにする"
     export function writeValue(varName: string, value: number): void {
-        // let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"w","n":"' + varName + '","v":"' + value + '"}';
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + varName + ',' + value;
         let hash = computeHash(csv);
         serial.writeLine(csv+','+hash);
+        basic.pause(writeWaitTime);
     }
 
     /**
@@ -57,11 +58,10 @@ namespace TFabConnect {
     //% blockId=serial_result block="クラウド変数%varName"
     export function readValue(varName: string) {
         let receiveNumber;
-        // let s = '{"t":"' + input.runningTime() + '","s":"' + control.deviceSerialNumber() + '","m":"r","n":"' + varName + '","v":"0"}'
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',r,' + varName + ',0'
         let hash = computeHash(csv);
         serial.writeLine(csv+','+hash);
-        basic.pause(waitTime);
+        basic.pause(readWaitTime);
 
         receiveNumber = parseFloat(serial.readString());
         if (isNaN(receiveNumber)) {
