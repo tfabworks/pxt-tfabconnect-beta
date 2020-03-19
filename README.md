@@ -1,7 +1,7 @@
-# pxt-tfabconnect
+# pxt-tfabconnect-beta
 
 
-https://alpha.tfabconnect.com/
+https://beta.tfabconnect.com/
 
 
 
