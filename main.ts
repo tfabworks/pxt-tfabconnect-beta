@@ -30,7 +30,7 @@ namespace TFabConnect {
         serial.redirect(
             SerialPin.USB_TX,
             SerialPin.USB_RX,
-            BaudRate.BaudRate115200
+            BaudRate.BaudRate9600
         )
         serial.writeString("\r\n"); // ヌル文字をいったんクリア
         _ = serial.readString(); // 受信バッファのゴミ除去
