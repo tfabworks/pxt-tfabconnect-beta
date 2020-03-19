@@ -16,7 +16,7 @@ enum Choice {
 }
 
 //% weight=2 color=#3276f4 icon="\uf0c2"
-namespace TFabConnect {
+namespace TFabConnectBeta {
     let writeWaitTime = 1000;
     let readWaitTime = 3000;
     let _;
