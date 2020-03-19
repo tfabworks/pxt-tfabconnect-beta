@@ -202,7 +202,7 @@ namespace TFabConnect {
             let c = s.charCodeAt(i);
             hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
         }
-        return hash & 0xff;
+        return hash & 0xffff;
     }
 
     //% blockId=watch_time block="時間 %Choice"
