@@ -64,11 +64,13 @@ namespace TFabConnectBeta {
         serial.writeLine(csv+','+hash);
         basic.pause(readWaitTime);
 
-        receiveNumber = parseFloat(serial.readString());
-        serial.writeLine('' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + 'debugA' + kvs[varName] + ',100');
-        if (isNaN(receiveNumber)) {
-            serial.writeLine('' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + 'debugB' + kvs[varName] + ',100');
-            return kvs[varName];
+        let str = serial.readString();
+        receiveNumber = parseFloat(str);
+        serial.writeLine('debug:readedStr:'+str+',readedNum:'+receiveNumber);
+        if (str == "") {
+            let v = kvs[varName];
+            serial.writeLine('debug:'+v);
+            return v;
         }
         kvs[varName]=receiveNumber;
         return receiveNumber;
