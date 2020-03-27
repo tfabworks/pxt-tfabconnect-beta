@@ -66,14 +66,11 @@ namespace TFabConnectBeta {
 
         let str = serial.readString();
         receiveNumber = parseFloat(str);
-        serial.writeLine('debug:readedStr:'+str+',readedNum:'+receiveNumber);
-        if (str == "") {
+        if (str == "" || str == "err") {
             let v = kvs[varName];
             if (!kvs[varName]) {
-                serial.writeLine('debugNan:' + v);
                 return 0;
             }
-            serial.writeLine('debug:' + v);
             return v;
         }
         kvs[varName]=receiveNumber;
