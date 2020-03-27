@@ -69,7 +69,7 @@ namespace TFabConnectBeta {
         serial.writeLine('debug:readedStr:'+str+',readedNum:'+receiveNumber);
         if (str == "") {
             let v = kvs[varName];
-            if (typeof v === "undefined") {
+            if (!kvs[varName]) {
                 serial.writeLine('debugNan:' + v);
                 return 0;
             }
