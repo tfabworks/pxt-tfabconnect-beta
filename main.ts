@@ -65,8 +65,9 @@ namespace TFabConnectBeta {
         basic.pause(readWaitTime);
 
         receiveNumber = parseFloat(serial.readString());
+        serial.writeLine('' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + 'debugA' + kvs[varName] + ',100');
         if (isNaN(receiveNumber)) {
-            serial.writeLine('' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + 'debug:' + kvs[varName] + ',100');
+            serial.writeLine('' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + 'debugB' + kvs[varName] + ',100');
             return kvs[varName];
         }
         kvs[varName]=receiveNumber;
