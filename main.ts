@@ -69,7 +69,7 @@ namespace TFabConnectBeta {
         serial.writeLine('debug:readedStr:'+str+',readedNum:'+receiveNumber);
         if (str == "") {
             let v = kvs[varName];
-            if (isNaN(v)) {
+            if (typeof v === "undefined") {
                 serial.writeLine('debugNan:' + v);
                 return 0;
             }
@@ -84,11 +84,6 @@ namespace TFabConnectBeta {
      * setting wait time.
      * @param msec , eg:5000
      */
-
-
-    function isNaN(x: number) {
-        return x !== x;
-    }
 
     export function getcurrenttime() {
         running_current = Math.trunc(input.runningTime() / 1000);
