@@ -24,6 +24,7 @@ namespace TFabConnectBeta {
     let unixtime_current = 0;
     let running_init = 0;
     let running_current = 0;
+    let kvs: { [key: string]: number; } = {};
 
     //% blockId=serial_initialize block="初期化"
     export function serialInitialize(): void {
@@ -65,8 +66,10 @@ namespace TFabConnectBeta {
 
         receiveNumber = parseFloat(serial.readString());
         if (isNaN(receiveNumber)) {
-            return 0;
+            serial.writeLine('debug:'+kvs[varName]);
+            return kvs[varName];
         }
+        kvs[varName]=receiveNumber;
         return receiveNumber;
     }
 
