@@ -11,8 +11,9 @@
         "main.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "test.ts",
+        "test.blocks"
     ],
     "public": false,
-    "additionalFilePaths": []
+    "preferredEditor": "tsprj"
 }

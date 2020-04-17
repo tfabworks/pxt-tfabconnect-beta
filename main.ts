@@ -1,16 +1,16 @@
 enum Choice {
-    //% block="年"
-    Year,
-    //% block="月"
-    Month,
-    //% block="日"
-    Day,
-    //% block="時"
-    Hour,
-    //% block="分"
-    Minute,
-    //% block="秒"
-    Second,
+    //% block="year"
+    year,
+    //% block="month"
+    month,
+    //% block="day"
+    day,
+    //% block="hour"
+    hour,
+    //% block="minute"
+    minute,
+    //% block="second"
+    second,
     //% block="UnixTime"
     UnixTime
 }
@@ -26,7 +26,10 @@ namespace TFabConnectBeta {
     let running_current = 0;
     let kvs: { [key: string]: number; } = {};
 
-    //% blockId=serial_initialize block="初期化"
+    /**
+     * Initialize micro:bit for TfabConnect. Initialize the serial-port and the date.
+    */
+    //% blockId=serial_initialize block="Initialize"
     export function serialInitialize(): void {
         serial.redirect(
             SerialPin.USB_TX,
@@ -44,7 +47,7 @@ namespace TFabConnectBeta {
      * @param varName name of Cloud-Variable, eg: 
      * @param value write value to Cloud-Variable
      */
-    //% blockId=serial_writeid_value block="クラウド変数%varNameを%valueにする"
+    //% blockId=serial_writeid_value block="set cloud-variable %varName| to %value|"
     export function writeValue(varName: string, value: number): void {
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + varName + ',' + value;
         let hash = computeHash(csv);
@@ -56,7 +59,7 @@ namespace TFabConnectBeta {
      * Write a name:value pair as a line to the serial port.
      * @param varName name of Cloud-Variable, eg:
      */
-    //% blockId=serial_result block="クラウド変数%varName"
+    //% blockId=serial_result block="cloud-variable%varName|"
     export function readValue(varName: string) {
         let receiveNumber;
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',r,' + varName + ',0'
@@ -66,6 +69,7 @@ namespace TFabConnectBeta {
 
         let str = serial.readString();
         receiveNumber = parseFloat(str);
+
         if (str == "" || str == "err") {
             let v = kvs[varName];
             if (!kvs[varName]) {
@@ -74,6 +78,7 @@ namespace TFabConnectBeta {
             return v;
         }
         kvs[varName]=receiveNumber;
+
         return receiveNumber;
     }
 
@@ -81,8 +86,10 @@ namespace TFabConnectBeta {
      * setting wait time.
      * @param msec , eg:5000
      */
-
     export function getcurrenttime() {
+        if ( unixtime_init <= 0 ) {
+            basic.showIcon(IconNames.No);
+        }
         running_current = Math.trunc(input.runningTime() / 1000);
         unixtime_current = unixtime_init + (running_current - running_init);
         return unixtime_current;
@@ -207,22 +214,22 @@ namespace TFabConnectBeta {
         return hash & 0xffff;
     }
 
-    //% blockId=watch_time block="時間 %Choice"
+    //% blockId=watch_time block="time %Choice"
     export function time(choice: Choice) {
         let result = sec2date(getcurrenttime());
 
         switch (choice) {
-            case Choice.Year:
+            case Choice.year:
                 return result[0];
-            case Choice.Month:
+            case Choice.month:
                 return result[1];
-            case Choice.Day:
+            case Choice.day:
                 return result[2];
-            case Choice.Hour:
+            case Choice.hour:
                 return result[3];
-            case Choice.Minute:
+            case Choice.minute:
                 return result[4];
-            case Choice.Second:
+            case Choice.second:
                 return result[5];
             case Choice.UnixTime:
                 return result[6];

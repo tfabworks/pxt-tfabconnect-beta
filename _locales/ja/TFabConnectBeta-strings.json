@@ -1,0 +1,12 @@
+{
+    "TFabConnectBeta.serialInitialize|block": "初期化",
+    "TFabConnectBeta.writeValue|block": "クラウド変数%varName|を%value|にする",
+    "TFabConnectBeta.readValue|block": "クラウド変数%varName|",
+    "TFabConnectBeta.time|block": "時間 %Choice|",
+    "Choice.year|block": "年",
+    "Choice.month|block": "月",
+    "Choice.day|block": "日",
+    "Choice.hour|block": "時",
+    "Choice.minute|block": "分",
+    "Choice.second|block": "秒"
+}
