@@ -1,0 +1,15 @@
+{
+  "Choice.UnixTime|block": "UnixTime",
+  "Choice.day|block": "ああああ",
+  "Choice.hour|block": "hour",
+  "Choice.minute|block": "minute",
+  "Choice.month|block": "month",
+  "Choice.second|block": "second",
+  "Choice.year|block": "year",
+  "TFabConnectBeta.readValue|block": "cloud-variable%varName|",
+  "TFabConnectBeta.serialInitialize|block": "Initialize",
+  "TFabConnectBeta.time|block": "time %Choice",
+  "TFabConnectBeta.writeValue|block": "set cloud-variable %varName| to %value|",
+  "TFabConnectBeta|block": "TFabConnectBeta",
+  "{id:category}TFabConnectBeta": "TFabConnectBeta"
+}
