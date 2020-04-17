@@ -82,10 +82,7 @@ namespace TFabConnectBeta {
         return receiveNumber;
     }
 
-    /**
-     *  Get the date.
-     */
-    export function getcurrenttime() {
+    function getcurrenttime() {
         if ( unixtime_init <= 0 ) {
             basic.showIcon(IconNames.No);
         }
@@ -212,7 +209,11 @@ namespace TFabConnectBeta {
         }
         return hash & 0xffff;
     }
-
+  
+    /**
+     * Get the date.
+     * @param choice 
+     */
     //% blockId=watch_time block="time %Choice"
     export function time(choice: Choice) {
         let result = sec2date(getcurrenttime());
