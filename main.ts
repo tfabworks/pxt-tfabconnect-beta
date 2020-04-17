@@ -43,7 +43,7 @@ namespace TFabConnectBeta {
     }
 
     /**
-     * Write a name:value pair as a line to the serial port.
+     * Sets this cloud-variable to be equal to the input number.
      * @param varName name of Cloud-Variable, eg: 
      * @param value write value to Cloud-Variable
      */
@@ -56,7 +56,7 @@ namespace TFabConnectBeta {
     }
 
     /**
-     * Write a name:value pair as a line to the serial port.
+     * Read the number from cloud-variable.
      * @param varName name of Cloud-Variable, eg:
      */
     //% blockId=serial_result block="cloud-variable%varName|"
@@ -83,8 +83,7 @@ namespace TFabConnectBeta {
     }
 
     /**
-     * setting wait time.
-     * @param msec , eg:5000
+     *  Get the date.
      */
     export function getcurrenttime() {
         if ( unixtime_init <= 0 ) {

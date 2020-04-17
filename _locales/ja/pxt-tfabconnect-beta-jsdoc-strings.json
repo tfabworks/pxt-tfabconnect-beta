@@ -1,0 +1,9 @@
+{
+  "TFabConnectBeta.getcurrenttime": "日時を取得します。",
+  "TFabConnectBeta.readValue": "クラウド変数から数値を読みます。",
+  "TFabConnectBeta.readValue|param|varName": "クラウド変数名",
+  "TFabConnectBeta.serialInitialize": "シリアル通信の初期設定や日時の取得を行います。",
+  "TFabConnectBeta.writeValue": "クラウド変数に数値を書きます。",
+  "TFabConnectBeta.writeValue|param|value": "クラウド変数に書き込む値",
+  "TFabConnectBeta.writeValue|param|varName": "クラウド変数名"
+}
