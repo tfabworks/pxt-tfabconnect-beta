@@ -9,6 +9,7 @@
   "TFabConnectBeta.readValue|block": "クラウド変数%varName|",
   "TFabConnectBeta.serialInitialize|block": "初期化",
   "TFabConnectBeta.time|block": "時間 %Choice",
+  "TFabConnectBeta.Tzsetting|block": "時差を %Pm| %Tz_h| 時間 %Tz_m| 分にする",
   "TFabConnectBeta.writeValue|block": "クラウド変数%varName|を%value|にする",
   "TFabConnectBeta|block": "TFabConnectBeta",
   "{id:category}TFabConnectBeta": "TFabConnectBeta"

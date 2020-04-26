@@ -5,5 +5,6 @@
   "TFabConnectBeta.serialInitialize": "シリアル通信の初期設定や日時の取得を行います。",
   "TFabConnectBeta.writeValue": "クラウド変数に数値を書きます。",
   "TFabConnectBeta.writeValue|param|value": "クラウド変数に書き込む値",
-  "TFabConnectBeta.writeValue|param|varName": "クラウド変数名"
+  "TFabConnectBeta.writeValue|param|varName": "クラウド変数名",
+  "TFabConnectBeta.Tzsetting": "グリニッジ標準時からの時差を設定します。"
 }

@@ -1,6 +1,6 @@
 {
     "name": "pxt-tfabconnect-beta",
-    "version": "1.0.1",
+    "version": "1.0.18",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -17,5 +17,6 @@
         "test.blocks"
     ],
     "public": false,
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "installedVersion": "workspace:b072c5a2-f297-4dab-abf6-b4cefd0aaacb"
 }

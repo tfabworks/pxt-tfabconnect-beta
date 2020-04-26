@@ -10,9 +10,54 @@ enum Choice {
     //% block="minute"
     minute,
     //% block="second"
-    second,
-    //% block="UnixTime"
-    UnixTime
+    second
+}
+
+enum Pm {
+    //% block="+"
+    p,
+    //% block="-"
+    m
+}
+
+enum Tz_h {
+    //% block="0"
+    zero,
+    //% block="1"
+    one,
+    //% block="2"
+    two,
+    //% block="3"
+    three,
+    //% block="4"
+    four,
+    //% block="5"
+    five,
+    //% block="6"
+    six,
+    //% block="7"
+    seven,
+    //% block="8"
+    eight,
+    //% block="9"
+    nine,
+    //% block="10"
+    ten,
+    //% block="11"
+    eleven,
+    //% block="12"
+    twelve
+}
+
+enum Tz_m {
+    //% block="0"
+    zero,
+    //% block="15"
+    fifteen,
+    //% block="30"
+    thirty,
+    //% block="45"
+    fourty_five
 }
 
 //% weight=2 color=#3276f4 icon="\uf0c2"
@@ -25,6 +70,7 @@ namespace TFabConnectBeta {
     let running_init = 0;
     let running_current = 0;
     let kvs: { [key: string]: number; } = {};
+    let diff_sec = 0;
 
     /**
      * Initialize micro:bit for TfabConnect. Initialize the serial-port and the date.
@@ -43,6 +89,87 @@ namespace TFabConnectBeta {
     }
 
     /**
+     * Set the time difference from Greenwich Mean Time.
+     * @param pm
+     * @param tz_h
+     * @param tz_m
+    */
+    //% blockId=Tz_initialize block="set Timezone %Pm| %Tz_h| hour %Tz_m minute"
+    export function Tzsetting(pm: Pm, tz_h: Tz_h, tz_m: Tz_m): void {
+        switch (tz_h) {
+            case Tz_h.twelve:
+                diff_sec += 43200
+                break
+            case Tz_h.eleven:
+                diff_sec += 39600
+                break
+            case Tz_h.ten:
+                diff_sec += 36000
+                break
+            case Tz_h.nine:
+                diff_sec += 32400
+                break
+            case Tz_h.eight:
+                diff_sec += 28800
+                break
+            case Tz_h.seven:
+                diff_sec += 25200
+                break
+            case Tz_h.six:
+                diff_sec += 21600
+                break
+            case Tz_h.five:
+                diff_sec += 18000
+                break
+            case Tz_h.four:
+                diff_sec += 14400
+                break
+            case Tz_h.three:
+                diff_sec += 10800
+                break
+            case Tz_h.two:
+                diff_sec += 7200
+                break
+            case Tz_h.one:
+                diff_sec += 3600
+                break
+            case Tz_h.zero:
+                diff_sec += 0
+                break
+            default:
+                diff_sec += 0
+                break
+        }
+
+        switch (tz_m) {
+            case Tz_m.zero:
+                diff_sec += 0
+                break
+            case Tz_m.fifteen:
+                diff_sec += 900
+                break
+            case Tz_m.thirty:
+                diff_sec += 1800
+                break
+            case Tz_m.fourty_five:
+                diff_sec += 2700
+                break
+            default:
+                diff_sec += 0
+                break
+        }
+
+        switch (pm) {
+            case Pm.m:
+                diff_sec = -diff_sec
+                break
+            default:
+                diff_sec += 0
+                break
+        }
+
+    }
+    /**
      * Sets this cloud-variable to be equal to the input number.
      * @param varName name of Cloud-Variable, eg: 
      * @param value write value to Cloud-Variable
@@ -51,7 +178,7 @@ namespace TFabConnectBeta {
     export function writeValue(varName: string, value: number): void {
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + varName + ',' + value;
         let hash = computeHash(csv);
-        serial.writeLine(csv+','+hash);
+        serial.writeLine(csv + ',' + hash);
         basic.pause(writeWaitTime);
     }
 
@@ -64,7 +191,7 @@ namespace TFabConnectBeta {
         let receiveNumber;
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',r,' + varName + ',0'
         let hash = computeHash(csv);
-        serial.writeLine(csv+','+hash);
+        serial.writeLine(csv + ',' + hash);
         basic.pause(readWaitTime);
 
         let str = serial.readString();
@@ -77,13 +204,13 @@ namespace TFabConnectBeta {
             }
             return v;
         }
-        kvs[varName]=receiveNumber;
+        kvs[varName] = receiveNumber;
 
         return receiveNumber;
     }
 
     function getcurrenttime() {
-        if ( unixtime_init <= 0 ) {
+        if (unixtime_init <= 0) {
             basic.showIcon(IconNames.No);
         }
         running_current = Math.trunc(input.runningTime() / 1000);
@@ -91,7 +218,7 @@ namespace TFabConnectBeta {
         return unixtime_current;
     }
 
-    export function sec2date(sec = getcurrenttime()) {
+    export function sec2date(sec: number) {
         //変数定義
         let t = [];
         let y = 0;
@@ -103,15 +230,11 @@ namespace TFabConnectBeta {
         const sec366 = 31622400;
         let i = 0;
 
-        //2000/01/01 00:00:00の例外
-        if (sec == 946652400) {
-            const x = [2000, 1, 1, 0, 0];
-            return x;
-        }
-
-        //9時間分の時差を補正
         let unix_show = Math.trunc(sec);
-        sec = sec + 32400;
+
+        //時差補正
+        //sec += 32400; //日本時間の例
+        sec += diff_sec
 
         //yearを求める
         let sec_y = sec;
@@ -209,7 +332,7 @@ namespace TFabConnectBeta {
         }
         return hash & 0xffff;
     }
-  
+
     /**
      * Get the date.
      * @param choice 
@@ -231,8 +354,6 @@ namespace TFabConnectBeta {
                 return result[4];
             case Choice.second:
                 return result[5];
-            case Choice.UnixTime:
-                return result[6];
             default:
                 return 0;
         }
