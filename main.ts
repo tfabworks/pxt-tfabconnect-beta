@@ -220,7 +220,7 @@ namespace TFabConnectBeta {
         return unixtime_current;
     }
 
-    export function sec2date(sec: number) {
+    function sec2date(sec: number) {
         //変数定義
         let t = [];
         let y = 0;
