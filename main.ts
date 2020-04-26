@@ -10,7 +10,9 @@ enum Choice {
     //% block="minute"
     minute,
     //% block="second"
-    second
+    second,
+    //% block="UnixTime"
+    UnixTime
 }
 
 enum Pm {
@@ -354,6 +356,8 @@ namespace TFabConnectBeta {
                 return result[4];
             case Choice.second:
                 return result[5];
+            case Choice.UnixTime:
+                return result[6];
             default:
                 return 0;
         }
