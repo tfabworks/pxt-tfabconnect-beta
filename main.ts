@@ -102,87 +102,6 @@ namespace TFabConnectBeta {
     }
 
     /**
-     * Set the time difference from Greenwich Mean Time.
-     * @param pm
-     * @param tz_h
-     * @param tz_m
-    */
-    //% blockId=Tz_initialize block="set Timezone %Pm| %Tz_h| hour %Tz_m minute"
-    export function Tzsetting(pm: Pm, tz_h: Tz_h, tz_m: Tz_m): void {
-        switch (tz_h) {
-            case Tz_h.twelve:
-                diff_sec += 43200
-                break
-            case Tz_h.eleven:
-                diff_sec += 39600
-                break
-            case Tz_h.ten:
-                diff_sec += 36000
-                break
-            case Tz_h.nine:
-                diff_sec += 32400
-                break
-            case Tz_h.eight:
-                diff_sec += 28800
-                break
-            case Tz_h.seven:
-                diff_sec += 25200
-                break
-            case Tz_h.six:
-                diff_sec += 21600
-                break
-            case Tz_h.five:
-                diff_sec += 18000
-                break
-            case Tz_h.four:
-                diff_sec += 14400
-                break
-            case Tz_h.three:
-                diff_sec += 10800
-                break
-            case Tz_h.two:
-                diff_sec += 7200
-                break
-            case Tz_h.one:
-                diff_sec += 3600
-                break
-            case Tz_h.zero:
-                diff_sec += 0
-                break
-            default:
-                diff_sec += 0
-                break
-        }
-
-        switch (tz_m) {
-            case Tz_m.zero:
-                diff_sec += 0
-                break
-            case Tz_m.fifteen:
-                diff_sec += 900
-                break
-            case Tz_m.thirty:
-                diff_sec += 1800
-                break
-            case Tz_m.fourty_five:
-                diff_sec += 2700
-                break
-            default:
-                diff_sec += 0
-                break
-        }
-
-        switch (pm) {
-            case Pm.m:
-                diff_sec = -diff_sec
-                break
-            default:
-                diff_sec += 0
-                break
-        }
-
-    }
-    /**
      * Sets this cloud-variable to be equal to the input number.
      * @param varName name of Cloud-Variable, eg: 
      * @param value write value to Cloud-Variable
@@ -384,5 +303,88 @@ namespace TFabConnectBeta {
             default:
                 return 0;
         }
+    }
+    
+    
+    /**
+     * Set the time difference from Greenwich Mean Time.
+     * @param pm
+     * @param tz_h
+     * @param tz_m
+    */
+    //% blockId=Tz_initialize block="set Timezone %Pm| %Tz_h| hour %Tz_m minute"
+    export function Tzsetting(pm: Pm, tz_h: Tz_h, tz_m: Tz_m): void {
+        switch (tz_h) {
+            case Tz_h.twelve:
+                diff_sec += 43200
+                break
+            case Tz_h.eleven:
+                diff_sec += 39600
+                break
+            case Tz_h.ten:
+                diff_sec += 36000
+                break
+            case Tz_h.nine:
+                diff_sec += 32400
+                break
+            case Tz_h.eight:
+                diff_sec += 28800
+                break
+            case Tz_h.seven:
+                diff_sec += 25200
+                break
+            case Tz_h.six:
+                diff_sec += 21600
+                break
+            case Tz_h.five:
+                diff_sec += 18000
+                break
+            case Tz_h.four:
+                diff_sec += 14400
+                break
+            case Tz_h.three:
+                diff_sec += 10800
+                break
+            case Tz_h.two:
+                diff_sec += 7200
+                break
+            case Tz_h.one:
+                diff_sec += 3600
+                break
+            case Tz_h.zero:
+                diff_sec += 0
+                break
+            default:
+                diff_sec += 0
+                break
+        }
+
+        switch (tz_m) {
+            case Tz_m.zero:
+                diff_sec += 0
+                break
+            case Tz_m.fifteen:
+                diff_sec += 900
+                break
+            case Tz_m.thirty:
+                diff_sec += 1800
+                break
+            case Tz_m.fourty_five:
+                diff_sec += 2700
+                break
+            default:
+                diff_sec += 0
+                break
+        }
+
+        switch (pm) {
+            case Pm.m:
+                diff_sec = -diff_sec
+                break
+            default:
+                diff_sec += 0
+                break
+        }
+
     }
 }
