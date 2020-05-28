@@ -73,12 +73,13 @@ namespace TFabConnectBeta {
     let running_current = 0;
     let kvs: { [key: string]: number; } = {};
     let diff_sec = 0;
+    let serial_initialized = false;
+    let time_initialized = false;
 
     /**
      * Initialize micro:bit for TfabConnect. Initialize the serial-port and the date.
     */
-    //% blockId=serial_initialize block="Initialize"
-    export function serialInitialize(): void {
+    function serialInitialize(): void {
         serial.redirect(
             SerialPin.USB_TX,
             SerialPin.USB_RX,
@@ -86,8 +87,17 @@ namespace TFabConnectBeta {
         )
         serial.writeString("\r\n"); // ヌル文字をいったんクリア
         _ = serial.readString(); // 受信バッファのゴミ除去
-        unixtime_init = readValue("__now");
-        running_init = Math.trunc(input.runningTime() / 1000);
+    }
+
+    function timeInitialize(): void {
+        if (unixtime_init <= 0) {
+            unixtime_init = readValue("__now");
+        }
+
+        if (time_initialized == false) {
+            running_init = Math.trunc(input.runningTime() / 1000);
+            time_initialized = true;
+        }
     }
 
     /**
@@ -178,6 +188,10 @@ namespace TFabConnectBeta {
      */
     //% blockId=serial_writeid_value block="set cloud-variable %varName| to %value|"
     export function writeValue(varName: string, value: number): void {
+        if (serial_initialized == false) {
+            serialInitialize();
+            serial_initialized = true;
+        }
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',w,' + varName + ',' + value;
         let hash = computeHash(csv);
         serial.writeLine(csv + ',' + hash);
@@ -190,6 +204,11 @@ namespace TFabConnectBeta {
      */
     //% blockId=serial_result block="cloud-variable%varName|"
     export function readValue(varName: string) {
+        if (serial_initialized == false) {
+            serialInitialize();
+            serial_initialized = true;
+        }
+
         let receiveNumber;
         let csv = '' + input.runningTime() + ',' + control.deviceSerialNumber() + ',r,' + varName + ',0'
         let hash = computeHash(csv);
@@ -212,8 +231,12 @@ namespace TFabConnectBeta {
     }
 
     function getcurrenttime() {
+        if (time_initialized == false) {
+            timeInitialize();
+        }
         if (unixtime_init <= 0) {
             basic.showIcon(IconNames.No);
+            timeInitialize();
         }
         running_current = Math.trunc(input.runningTime() / 1000);
         unixtime_current = unixtime_init + (running_current - running_init);
@@ -342,7 +365,6 @@ namespace TFabConnectBeta {
     //% blockId=watch_time block="time %Choice"
     export function time(choice: Choice) {
         let result = sec2date(getcurrenttime());
-
         switch (choice) {
             case Choice.year:
                 return result[0];
