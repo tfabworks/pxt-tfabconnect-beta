@@ -87,6 +87,7 @@ namespace TFabConnectBeta {
         )
         serial.writeString("\r\n"); // ヌル文字をいったんクリア
         _ = serial.readString(); // 受信バッファのゴミ除去
+        basic.pause(100);
     }
 
     function timeInitialize(): void {
