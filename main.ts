@@ -107,6 +107,7 @@ namespace TFabConnectBeta {
      * @param value write value to Cloud-Variable
      */
     //% blockId=serial_writeid_value block="set cloud-variable %varName| to %value|"
+    //% weight=100
     export function writeValue(varName: string, value: number): void {
         if (serial_initialized == false) {
             serialInitialize();
@@ -123,6 +124,7 @@ namespace TFabConnectBeta {
      * @param varName name of Cloud-Variable, eg:
      */
     //% blockId=serial_result block="cloud-variable%varName|"
+    //% weight=90
     export function readValue(varName: string) {
         if (serial_initialized == false) {
             serialInitialize();
@@ -283,6 +285,7 @@ namespace TFabConnectBeta {
      * @param choice 
      */
     //% blockId=watch_time block="time %Choice"
+    //% weight=80
     export function time(choice: Choice) {
         let result = sec2date(getcurrenttime());
         switch (choice) {
@@ -313,6 +316,7 @@ namespace TFabConnectBeta {
      * @param tz_m
     */
     //% blockId=Tz_initialize block="set Timezone %Pm| %Tz_h| hour %Tz_m minute"
+    //% weight=70
     export function Tzsetting(pm: Pm, tz_h: Tz_h, tz_m: Tz_m): void {
         switch (tz_h) {
             case Tz_h.twelve:
